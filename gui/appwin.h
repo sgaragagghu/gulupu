@@ -35,7 +35,9 @@ gboolean                save_address                    (struct information *);
 gboolean                err_key_not_found               (void *);
 gboolean                update_messages                 (void *);
 void                    clear_address                   (void);
-void                    node_switch_wrap_cb             (GObject *, GAsyncResult *, gpointer);
+void                    node_switch_wrap_cb             (GObject *,
+                                                         GAsyncResult *,
+                                                         gpointer);
 GtkWindow * const       get_window                      (void);
 
 							

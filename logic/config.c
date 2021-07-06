@@ -18,7 +18,7 @@
 
 #include "config.h"
 
-#define LOAD_FILE(KEY_FILE, ERROR) \
+#define LOAD_FILE(KEY_FILE, ERROR)                                                   \
   g_autoptr(GKeyFile) KEY_FILE = g_key_file_new ();                                  \
   g_autoptr(GError) ERROR = NULL;                                                    \
                                                                                      \
@@ -40,7 +40,9 @@ load_config (const struct setting *set)
 }
 
 gboolean
-save_config (const struct setting *settings, gint settings_amount, gboolean overwrite)
+save_config (const struct setting *settings,
+             gint settings_amount,
+             gboolean overwrite)
 {
   LOAD_FILE(key_file, error);
 
@@ -48,17 +50,17 @@ save_config (const struct setting *settings, gint settings_amount, gboolean over
 
   for (int i = 0; i < settings_amount; ++i)
     {
-      g_autofree gchar *val = g_key_file_get_string (key_file, settings[i].group, settings[i].key, NULL);
-      if (overwrite || val == NULL)
-        {
-          g_key_file_set_string (key_file, settings[i].group, settings[i].key, settings[i].value);
-        }
+    g_autofree gchar *val = g_key_file_get_string (key_file, settings[i].group, settings[i].key, NULL);
+    if (overwrite || val == NULL)
+      {
+      g_key_file_set_string (key_file, settings[i].group, settings[i].key, settings[i].value);
+      }
     }
 
   if (!g_key_file_save_to_file (key_file, "config.ini", &error))
     {
-      g_warning ("Error saving config file: %s", error->message);
-      return FALSE;
+    g_warning ("Error saving config file: %s", error->message);
+    return FALSE;
     }
   return TRUE;
 }

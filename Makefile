@@ -30,11 +30,11 @@ endif
 
 FLAGS = -std=gnu11 -O3 -Wall -Wmissing-prototypes -Wno-unused-variable
 
-SRC =						\
+SRC =					\
 	./gui/main.c			\
-	./gui/app.c				\
+	./gui/app.c			\
 	./gui/appwin.c			\
-	./logic/parser_thread.c \
+	./logic/parser_thread.c		\
 	./logic/config.c		\
 
 # Windows resource -> exe properties as icon, version... etc

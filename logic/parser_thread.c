@@ -63,7 +63,8 @@ get_informations ()
 }
 
 static enum info_types
-get_token (struct information * informations, const char * string)
+get_token (struct information * informations,
+           const char * string)
 {
   enum info_types ret = INFO_COUNT;
   for(gint i = 0; i < INFO_COUNT; ++i)
@@ -81,15 +82,15 @@ get_token (struct information * informations, const char * string)
       else
         i = next - 1;
       } 
-	else if(ret != INFO_COUNT)
+    else if(ret != INFO_COUNT)
       for (enum info_types temp = ret;
            temp < INFO_COUNT ||
-		   ((ret = INFO_COUNT) && FALSE);
+           ((ret = INFO_COUNT) && FALSE);
            temp = informations[temp].next)
          {
-           informations[temp].token[0] = '\0';
-           if (informations[temp].propagate != INFO_COUNT)
-             informations[informations[temp].propagate].token[0] = '\0';
+         informations[temp].token[0] = '\0';
+         if (informations[temp].propagate != INFO_COUNT)
+           informations[informations[temp].propagate].token[0] = '\0';
          }
   }
   return INFO_COUNT;
@@ -106,13 +107,15 @@ get_normal_message_patterns ()
       "%*[^S]Successfully mined block on top %s",
       "%*[^✨]✨ Imported %s",
       "%*[^L]Local hashrate:%s",
-      "%*[^⚙️]⚙️ Syncing %s" };
+      "%*[^⚙️]⚙️ Syncing %s"
+    };
   return &patterns;
 
 }
 
 static gboolean
-is_warn (const char * string, const struct normal_message_patterns *patterns)
+is_warn (const char * string,
+         const struct normal_message_patterns *patterns)
 {
   static gchar buff[BUFF_SIZE];
   for(gint i = 0; i < patterns->dim; ++i)
@@ -120,9 +123,9 @@ is_warn (const char * string, const struct normal_message_patterns *patterns)
     if(sscanf (string, *(&(patterns->pattern1) + i) , buff) == 1)
       {
 #if DEBUG_PARSING
-        g_print("bool:TRUE pattern:%s token:%s /", *(&(patterns->pattern1) + i), buff);  
+      g_print("bool:TRUE pattern:%s token:%s /", *(&(patterns->pattern1) + i), buff);  
 #endif
-        return FALSE;
+      return FALSE;
       } 
     }
 #if DEBUG_PARSING
@@ -132,14 +135,16 @@ is_warn (const char * string, const struct normal_message_patterns *patterns)
 }
 
 static void
-print_parser_debug (gchar * line, enum info_types type, struct information * informations)
+print_parser_debug (gchar * line,
+                    enum info_types type,
+                    struct information * informations)
 {
   g_print ("%s", line);
     for(enum info_types type_t = type;
       type_t != INFO_COUNT;
       type_t = informations[type_t].next)
       {
-        g_print (" type: %d, value: %s ", type_t, informations[type_t].token);
+      g_print (" type: %d, value: %s ", type_t, informations[type_t].token);
       }
   g_print("\n");
 }
@@ -148,8 +153,7 @@ static inline gchar *
 trailing_new_line (gchar * line)
 {
   size_t offset = strlen(line) - 1;
-  if (offset)
-	  line[offset] = '\n';
+  if (offset) line[offset] = '\n';
   return line;
 }
 
@@ -176,14 +180,13 @@ thread_loop (GSubprocess *process)
     gchar * end_of_record = available_buffer + read;
     *end_of_record = '\0';
 
-	gchar * last_line = NULL;
+    gchar * last_line = NULL;
     
     for(gchar * line = strtok (buffer, "\r\n");
-         line != NULL && line <= end_of_record;
-         last_line = line, line = strtok (NULL, "\r\n"))
+        line != NULL && line <= end_of_record;
+        last_line = line, line = strtok (NULL, "\r\n"))
       {
-
-	  enum info_types type = get_token(informations, line);
+      enum info_types type = get_token(informations, line);
 
       g_idle_add ((GSourceFunc) update_messages, PARSER_SET_WARN(trailing_new_line (strdup (line)), is_warn (line, get_normal_message_patterns ())));
 
@@ -201,7 +204,6 @@ thread_loop (GSubprocess *process)
 
       if (type == INFO_ADDRESS) g_idle_add ((GSourceFunc) save_address, informations);
 
-
       time (&now);
       if(difftime (now, last_refresh) > REFRESH_TIME)
         {
@@ -215,7 +217,7 @@ thread_loop (GSubprocess *process)
       available_buffer = buffer;
       strcpy(buffer, last_line + strlen (last_line));
       } 
-	else
+    else
       available_buffer += read;
     }
 

@@ -73,7 +73,7 @@ node_switch_cb (GtkSwitch  *switcher,
   static pthread_t thread_id;
   if(state)
     {
-	manage_node_thread ((struct manage_node_arg){TH_START, 0, &thread_id, switcher});
+    manage_node_thread ((struct manage_node_arg){TH_START, 0, &thread_id, switcher});
     gtk_switch_set_state (switcher, TRUE);
     } 
   else
@@ -140,14 +140,14 @@ kulupu_exe_select_cb (GtkButton *button, ExampleAppWindow *win)
   res = gtk_dialog_run (GTK_DIALOG (dialog));
   if (res == GTK_RESPONSE_ACCEPT)
     {
-      gchar *filename;
-      GtkFileChooser *chooser = GTK_FILE_CHOOSER (dialog);
-      filename = gtk_file_chooser_get_filename (chooser);
-      save_config (&(struct setting){"Kulupu", "exe", filename},
-                   1,
-                   TRUE);
-      gtk_entry_set_text(GTK_ENTRY(win->kulupu_exe_entry), filename);
-      g_free (filename);
+    gchar *filename;
+    GtkFileChooser *chooser = GTK_FILE_CHOOSER (dialog);
+    filename = gtk_file_chooser_get_filename (chooser);
+    save_config (&(struct setting){"Kulupu", "exe", filename},
+                 1,
+                 TRUE);
+    gtk_entry_set_text(GTK_ENTRY(win->kulupu_exe_entry), filename);
+    g_free (filename);
     }
 
   gtk_widget_destroy (dialog);
@@ -176,16 +176,16 @@ thread_deleted_cb (GtkEditable *editable,
   
   for (gint read = 0, accept_zero = FALSE;
        threads[read] != '\0';
-	   ++read)
+       ++read)
     {
     if ((threads[read] >= '1' && threads[read] <= '9') || (accept_zero && (threads[read] == '0')))
       {
-	  if (!accept_zero) accept_zero = TRUE;
+      if (!accept_zero) accept_zero = TRUE;
       }
-	else
+    else
       {
       g_signal_stop_emission_by_name (editable, "delete-text");
-	  return;
+      return;
       }
     }
 
@@ -203,12 +203,12 @@ thread_inserted_cb (GtkEditable *editable,
 
   for (gint write = 0, read = 0, accept_zero = (*old_text >= '1' && *old_text <= '9') && *(char *)position;
        new_text[read] != '\0' || ((new_text[write] = new_text[read]) && FALSE);
-	   ++read)
+       ++read)
     {
     if ((new_text[read] >= '1' && new_text[read] <= '9') || (accept_zero && (new_text[read] == '0')))
       {
       new_text[write++] = new_text[read];
-	  if (!accept_zero) accept_zero = TRUE;
+      if (!accept_zero) accept_zero = TRUE;
       }
     }
 
@@ -270,9 +270,9 @@ example_app_window_init (ExampleAppWindow *win)
   gtk_switch_set_active (GTK_SWITCH (win->mine_at_start_switch),
                          mine_at_start_maybe);
   if (mine_at_start_maybe)
-  {
+    {
     node_switch_cb (GTK_SWITCH(win->node_switch), TRUE, win);
-  }
+    }
 }
 
 static void
@@ -317,7 +317,7 @@ example_app_window_new (ExampleApp *app)
 
 void
 example_app_window_open (ExampleAppWindow *win,
-                         GFile            *file)
+                         GFile *file)
 {
   gchar *basename;
   GtkWidget *scrolled, *view;
@@ -401,7 +401,10 @@ err_key_not_found (void *argv)
 }
 
 static void
-add_text_bottom (GtkTextView *textview, gchar *line, gboolean free, gboolean scroll_down)
+add_text_bottom (GtkTextView *textview,
+                 gchar *line,
+                 gboolean free,
+                 gboolean scroll_down)
 {
   GtkTextBuffer *buffer = gtk_text_view_get_buffer (textview);
   
@@ -432,7 +435,7 @@ update_messages (void *line)
     add_text_bottom (GTK_TEXT_VIEW(g_window->warnings_frame_content),
                      PARSER_GET_ADDRESS(line),
                      FALSE,
-				     FALSE);
+                     FALSE);
 
   }
 

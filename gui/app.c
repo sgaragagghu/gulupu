@@ -39,8 +39,8 @@ static ExampleApp *g_app = NULL;
 static void
 example_app_init (ExampleApp *app)
 {
-	initialize_config ();
-	g_app = app;
+  initialize_config ();
+  g_app = app;
 }
 
 static void
@@ -106,25 +106,25 @@ manage_node_thread (struct manage_node_arg arg)
   g_autofree const gchar *threads = load_config (&(struct setting){"Kulupu", "threads", NULL}).value;
   g_autofree const gchar *address = load_config (&(struct setting){"Kulupu", "address", NULL}).value;
 
-const gchar * const * base_argv;
+  const gchar * const * base_argv;
 
-    const gchar * const base_argv_addr[] = {
-                                             exe,
-                                             "--validator",
-                                             "--author",
-                                             address,
-                                             "--threads",
-                                             threads,
-                                             NULL
-                                           };
+  const gchar * const base_argv_addr[] = {
+                                           exe,
+                                           "--validator",
+                                           "--author",
+                                           address,
+                                           "--threads",
+                                           threads,
+                                           NULL
+                                         };
 
-    const gchar * const base_argv_no_addr[] = {
-                                                exe,
-                                                "--validator",
-                                                "--threads",
-                                                threads,
-                                                NULL
-                                              };
+  const gchar * const base_argv_no_addr[] = {
+                                              exe,
+                                              "--validator",
+                                              "--threads",
+                                              threads,
+                                              NULL
+                                            };
 
   if (strlen (address))
     base_argv = base_argv_addr;
@@ -153,13 +153,13 @@ const gchar * const * base_argv;
     g_subprocess_send_signal (process, SIGINT);
 #else
     SetConsoleCtrlHandler (NULL, TRUE);
-	GenerateConsoleCtrlEvent(CTRL_C_EVENT, 0);
+    GenerateConsoleCtrlEvent(CTRL_C_EVENT, 0);
 #endif
     g_subprocess_wait(process, NULL, NULL);
-	uintptr_t retval;
-	pthread_join (*thread_id, (gpointer *)&retval);
+    uintptr_t retval;
+    pthread_join (*thread_id, (gpointer *)&retval);
     manage_node_error (retval);
-	process = NULL;
+    process = NULL;
   }
 }
 
