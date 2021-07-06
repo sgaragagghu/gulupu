@@ -1,0 +1,78 @@
+/*
+ * Copyright (C) 2021 sgaragagghu marco.scarlino@students-live.uniroma2.it
+ *
+ * This file is part of Gulupu
+ * Gulupu is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
+ */
+
+entry { 
+  min-height: 0px;
+  padding-left: 2px;
+  padding-right: 2px;
+}
+
+scrolledwindow {
+  border-right-width: 0px;
+  border-left-width: 0px;
+  border-bottom-width: 0px;
+}
+
+switch { 
+  min-height: 0px;
+  min-width: 0px;
+  margin-left: 2px;
+  margin-right: 2px;
+  margin-top: 1px;
+}
+
+switch slider { 
+  min-height: 1px;
+  min-width: 1px;
+}
+
+grid > label { 
+  margin-left: 2px;
+}
+
+grid > entry { 
+  margin-right: 2px;
+}
+
+grid > button { 
+  margin-right: 2px;
+}
+
+frame > grid { 
+  margin-bottom: 2px;
+  margin-right: 2px;
+  margin-left: 2px;
+}
+
+grid button { 
+  min-height: 1px;
+  padding-left: 4px;
+  padding-right: 4px;
+  padding-top: 1px;
+  padding-bottom: 1px;
+}
+
+grid entry:focus {
+  border-color: #cdc7c2;
+  box-shadow: none;
+}
+
+/* box#header_spacer_box {
+*  padding-left: 15px;
+*  }
+*/

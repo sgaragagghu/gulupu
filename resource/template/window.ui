@@ -1,0 +1,596 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Copyright (C) 2021 sgaragagghu marco.scarlino@students-live.uniroma2.it
+ *
+ * This file is part of Gulupu
+ * Gulupu is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
+ -->
+
+<interface>
+  <!-- interface-requires gtk+ 3.8 -->
+  <template class="ExampleAppWindow" parent="GtkApplicationWindow">
+    <property name="title" translatable="yes">Gulupu</property>
+    <property name="resizable">False</property>
+    <child type="titlebar">
+      <object class="GtkHeaderBar" id="header">
+        <property name="visible">True</property>
+        <property name="show-close-button">True</property>
+          <child type="title">
+            <object class="GtkBox" id="header_box">
+            <property name="visible">True</property>
+              <child>
+                <object class="GtkImage" id="header_image">
+                  <property name="visible">True</property>
+                 </object>
+              </child>
+              <child>
+                <object class="GtkBox" id="header_spacer_box">
+                  <property name="name">header_spacer_box</property>
+                  <property name="visible">True</property>
+                  <property name="expand">True</property>
+                  <property name="halign">center</property>
+                  <property name="valign">center</property>
+                  <property name="orientation">vertical</property>
+				    <child>
+					  <object class="GtkLabel" id="header_version_label_up">
+                        <property name="visible">True</property>
+                        <property name="sensitive">False</property>
+                        <property name="label">Gulupu</property>
+					  </object>
+				    </child>
+				    <child>
+					  <object class="GtkLabel" id="header_version_label_down">
+                        <property name="visible">True</property>
+                        <property name="sensitive">False</property>
+                        <property name="label">v. 0.90</property>
+					  </object>
+				    </child>
+                 </object>
+              </child>
+              <child>
+                <object class="GtkStackSwitcher" id="tabs">
+                  <property name="visible">True</property>
+                  <property name="stack">stack</property>
+                </object>
+              </child>
+            </object>
+	      </child>
+       </object>
+    </child>
+    <child>
+      <object class="GtkStack" id="stack">
+        <property name="visible">True</property>
+        <property name= "margin-start">8</property>
+        <property name= "margin-end">8</property>
+        <property name= "margin-bottom">8</property>
+        <child>
+          <object class="GtkBox" id="node_box">
+            <property name="visible">True</property>
+            <property name="orientation">vertical</property>
+			<child>
+			  <object class="GtkFrame">
+                <property name="visible">True</property>
+                <child type="label">
+                  <object class="GtkBox" id="node_label_box">
+                    <property name="visible">True</property>
+                    <property name="orientation">horizontal</property>
+                    <child>
+                      <object class="GtkLabel" id="node_stats_frame_label">
+                        <property name="visible">True</property>
+                        <property name="label">Kulupu node state</property>
+                      </object>
+                      </child>
+                      <child>
+                      <object class="GtkSwitch" id="node_switch">
+                        <property name="visible">True</property>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkGrid" id="node_stats_frame_content">
+                  <property name="visible">True</property>
+				  <child>
+                    <object class="GtkLabel" id="version_label">
+                      <property name="visible">True</property>
+                      <property name="halign">end</property>
+                      <property name="label">Version</property>
+                    </object>
+                    <packing>
+                      <property name="left-attach">0</property>
+                      <property name="top-attach">0</property>
+                    </packing>
+				  </child>
+				  <child>
+                    <object class="GtkEntry" id="version_entry">
+                      <property name="visible">True</property>
+                      <property name="editable">False</property>
+                      <property name="can_focus">False</property>
+                      <property name="width-chars">15</property>
+                    </object>
+                    <packing>
+                      <property name="left-attach">1</property>
+                      <property name="top-attach">0</property>
+                    </packing>
+				  </child>
+				  <child>
+                    <object class="GtkLabel" id="target_label">
+                      <property name="visible">True</property>
+                      <property name="halign">end</property>
+                      <property name="label">Target</property>
+                    </object>
+                    <packing>
+                      <property name="left-attach">2</property>
+                      <property name="top-attach">1</property>
+                    </packing>
+				  </child>
+				  <child>
+                    <object class="GtkEntry" id="target_entry">
+                      <property name="visible">True</property>
+                      <property name="editable">False</property>
+                      <property name="can_focus">False</property>
+                      <property name="width-chars">23</property>
+                    </object>
+                    <packing>
+                      <property name="left-attach">3</property>
+                      <property name="top-attach">1</property>
+                    </packing>
+				  </child>
+				  <child>
+                    <object class="GtkLabel" id="best_block_label">
+                      <property name="visible">True</property>
+                      <property name="halign">end</property>
+                      <property name="label">Best block</property>
+                    </object>
+                    <packing>
+                      <property name="left-attach">0</property>
+                      <property name="top-attach">1</property>
+                    </packing>
+				  </child>
+				  <child>
+                    <object class="GtkEntry" id="best_block_entry">
+                      <property name="visible">True</property>
+                      <property name="editable">False</property>
+                      <property name="can_focus">False</property>
+                      <property name="width-chars">15</property>
+                    </object>
+                    <packing>
+                      <property name="left-attach">1</property>
+                      <property name="top-attach">1</property>
+                    </packing>
+				  </child>
+				  <child>
+                    <object class="GtkLabel" id="name_label">
+                      <property name="visible">True</property>
+                      <property name="halign">end</property>
+                      <property name="label">Name</property>
+                    </object>
+                    <packing>
+                      <property name="left-attach">4</property>
+                      <property name="top-attach">0</property>
+                    </packing>
+				  </child>
+				  <child>
+                    <object class="GtkEntry" id="name_entry">
+                      <property name="visible">True</property>
+                      <property name="editable">False</property>
+                      <property name="can_focus">False</property>
+                      <property name="width-chars">23</property>
+                    </object>
+                    <packing>
+                      <property name="left-attach">5</property>
+                      <property name="top-attach">0</property>
+                    </packing>
+				  </child>
+				  <child>
+                    <object class="GtkLabel" id="hashrate_label">
+                      <property name="visible">True</property>
+                      <property name="halign">end</property>
+                      <property name="label">Local H.</property>
+                    </object>
+                    <packing>
+                      <property name="left-attach">0</property>
+                      <property name="top-attach">2</property>
+                    </packing>
+				  </child>
+				  <child>
+                    <object class="GtkEntry" id="local_hashrate_entry">
+                      <property name="visible">True</property>
+                      <property name="editable">False</property>
+                      <property name="can_focus">False</property>
+                      <property name="width-chars">15</property>
+                    </object>
+                    <packing>
+                      <property name="left-attach">1</property>
+                      <property name="top-attach">2</property>
+                    </packing>
+				  </child>
+				  <child>
+                    <object class="GtkLabel" id="status_label">
+                      <property name="visible">True</property>
+                      <property name="halign">end</property>
+                      <property name="label">Status</property>
+                    </object>
+                    <packing>
+                      <property name="left-attach">4</property>
+                      <property name="top-attach">1</property>
+                    </packing>
+				  </child>
+				  <child>
+                    <object class="GtkEntry" id="status_entry">
+                      <property name="visible">True</property>
+                      <property name="editable">False</property>
+                      <property name="can_focus">False</property>
+                      <property name="width-chars">23</property>
+                    </object>
+                    <packing>
+                      <property name="left-attach">5</property>
+                      <property name="top-attach">1</property>
+                    </packing>
+				  </child>
+				  <child>
+                    <object class="GtkLabel" id="peers_label">
+                      <property name="visible">True</property>
+                      <property name="halign">end</property>
+                      <property name="label">Peers</property>
+                    </object>
+                    <packing>
+                      <property name="left-attach">2</property>
+                      <property name="top-attach">0</property>
+                    </packing>
+				  </child>
+				  <child>
+                    <object class="GtkEntry" id="peers_entry">
+                      <property name="visible">True</property>
+                      <property name="editable">False</property>
+                      <property name="can_focus">False</property>
+                      <property name="width-chars">23</property>
+                    </object>
+                    <packing>
+                      <property name="left-attach">3</property>
+                      <property name="top-attach">0</property>
+                    </packing>
+				  </child>
+                  <child>
+                    <object class="GtkLabel" id="network_hashrate_label">
+                      <property name="visible">True</property>
+                      <property name="halign">end</property>
+                      <property name="label">Network H.</property>
+                    </object>
+                    <packing>
+                      <property name="left-attach">2</property>
+                      <property name="top-attach">2</property>
+                    </packing>
+				  </child>
+				  <child>
+                    <object class="GtkEntry" id="network_hashrate_entry">
+                      <property name="visible">True</property>
+                      <property name="editable">False</property>
+                      <property name="can_focus">False</property>
+                      <property name="width-chars">23</property>
+                    </object>
+                    <packing>
+                      <property name="left-attach">3</property>
+                      <property name="top-attach">2</property>
+                    </packing>
+				  </child>
+                  <child>
+                    <object class="GtkLabel" id="identity_label">
+                      <property name="visible">True</property>
+                      <property name="halign">end</property>
+                      <property name="label">Identity</property>
+                    </object>
+                    <packing>
+                      <property name="left-attach">4</property>
+                      <property name="top-attach">2</property>
+                    </packing>
+				  </child>
+				  <child>
+                    <object class="GtkEntry" id="identity_entry">
+                      <property name="visible">True</property>
+                      <property name="editable">False</property>
+                      <property name="can_focus">False</property>
+                      <property name="width-chars">27</property>
+                    </object>
+                    <packing>
+                      <property name="left-attach">5</property>
+                      <property name="top-attach">2</property>
+                    </packing>
+				  </child>
+                  </object>
+                </child>
+              </object>
+            </child>
+			<child>
+			  <object class="GtkFrame">
+                <property name="visible">True</property>
+                <child type="label">
+                  <object class="GtkLabel" id="settings_frame_label">
+                    <property name="visible">True</property>
+				    <property name="label">General settings</property>
+				  </object>
+                </child>
+                <child>
+                  <object class="GtkGrid" id="settings_frame_content">
+                  <property name="visible">True</property>
+					<child>
+                      <object class="GtkLabel" id="kulupu_exe_label">
+						<property name="visible">True</property>
+						<property name="halign">end</property>
+						<property name="label">Kulupu binary</property>
+                      </object>
+                      <packing>
+						<property name="left-attach">0</property>
+						<property name="top-attach">0</property>
+                      </packing>
+					</child>
+					<child>
+                      <object class="GtkEntry" id="kulupu_exe_entry">
+                        <property name="visible">True</property>
+						<property name="editable">False</property>
+						<property name="can_focus">False</property>
+						<property name="hexpand">True</property>
+                      </object>
+                        <packing>
+                          <property name="left-attach">1</property>
+						  <property name="top-attach">0</property>
+						  <property name="width">4</property>
+						</packing>
+					</child>
+					<child>
+                      <object class="GtkButton" id="kulupu_exe_button">
+						<property name="visible">True</property>
+						<property name="label">Choose</property>
+                    </object>
+                      <packing>
+						<property name="left-attach">5</property>
+						<property name="top-attach">0</property>
+                      </packing>
+					</child>
+					<child>
+					  <object class="GtkLabel" id="address_label">
+						<property name="visible">True</property>
+                        <property name="halign">end</property>
+						<property name="label">Address</property>
+					  </object>
+					  <packing>
+						<property name="left-attach">0</property>
+						<property name="top-attach">2</property>
+					  </packing>
+					</child>
+					<child>
+					  <object class="GtkGrid" id="address_database_grid">
+						<property name="visible">True</property>
+					      <child>
+					        <object class="GtkEntry" id="address_entry">
+						      <property name="visible">True</property>
+						      <property name="editable">False</property>
+						      <property name="can_focus">False</property>
+                              <property name="width-chars">43</property>
+					        </object>
+					        <packing>
+						      <property name="left-attach">1</property>
+						      <property name="top-attach">2</property>
+					        </packing>
+					      </child>
+                          <child>
+                            <object class="GtkLabel" id="database_label">
+                              <property name="visible">True</property>
+                              <property name="halign">end</property>
+                              <property name="label">Database</property>
+                            </object>
+                            <packing>
+                              <property name="left-attach">2</property>
+                              <property name="top-attach">2</property>
+                            </packing>
+                          </child>
+				          <child>
+                            <object class="GtkEntry" id="database_entry">
+                              <property name="visible">True</property>
+                              <property name="editable">False</property>
+                              <property name="can_focus">False</property>
+                              <property name="hexpand">True</property>
+                            </object>
+                            <packing>
+                              <property name="left-attach">3</property>
+                              <property name="top-attach">2</property>
+                              <property name="width">3</property>
+                            </packing>
+                          </child>
+					    </object>
+					  <packing>
+                        <property name="left-attach">1</property>
+                        <property name="top-attach">2</property>
+                        <property name="width">5</property>
+					  </packing>
+					</child>
+					<child>
+					  <object class="GtkLabel" id="run_args_label">
+						<property name="visible">True</property>
+                        <property name="halign">end</property>
+						<property name="label">Run args (opt)</property>
+					  </object>
+					  <packing>
+						<property name="left-attach">0</property>
+						<property name="top-attach">1</property>
+					  </packing>
+					</child>
+					<child>
+					  <object class="GtkEntry" id="run_args_entry">
+						<property name="visible">True</property>
+						<property name="editable">False</property>
+						<property name="can_focus">False</property>
+                        <property name="hexpand">True</property>
+					  </object>
+					  <packing>
+						<property name="left-attach">1</property>
+						<property name="top-attach">1</property>
+					  </packing>
+					</child>
+					<child>
+					  <object class="GtkLabel" id="threads_label">
+						<property name="visible">True</property>
+                        <property name="halign">end</property>
+						<property name="label">Threads</property>
+					  </object>
+					  <packing>
+						<property name="left-attach">2</property>
+						<property name="top-attach">1</property>
+					  </packing>
+					</child>
+					<child>
+					  <object class="GtkEntry" id="threads_entry">
+						<property name="visible">True</property>
+						<property name="input-hints">GTK_INPUT_HINT_NO_EMOJI</property>
+                        <property name="width-chars">3</property>
+					  </object>
+					  <packing>
+						<property name="left-attach">3</property>
+						<property name="top-attach">1</property>
+					  </packing>
+					</child>
+					<child>
+					  <object class="GtkLabel" id="mine_at_start_label">
+						<property name="visible">True</property>
+						<property name="halign">end</property>
+						<property name="label">Mine at start</property>
+					  </object>
+					  <packing>
+						<property name="left-attach">4</property>
+						<property name="top-attach">1</property>
+					  </packing>
+					</child>
+					<child>
+					  <object class="GtkBox" id="mine_at_start_box_switch">
+						<property name="visible">True</property>
+                        <child>
+                          <object class="GtkSwitch" id="mine_at_start_switch">
+                          <property name="visible">True</property>
+                      </object>
+					</child>
+					  </object>
+					  <packing>
+						<property name="left-attach">5</property>
+						<property name="top-attach">1</property>
+					  </packing>
+					</child>
+                  </object>
+                </child>
+              </object>
+            </child>
+			<child>
+			  <object class="GtkFrame">
+                <property name="visible">True</property>
+                <property name="expand">True</property>
+                <child type="label">
+                  <object class="GtkLabel" id="node_warnings_frame_label">
+                    <property name="visible">True</property>
+				    <property name="label">Kulupu latest warnings</property>
+				  </object>
+                </child>
+                <child>
+                  <object class="GtkScrolledWindow" id="node_warnings_frame_content_wrapper">
+                    <property name="visible">True</property>
+                    <property name="shadow-type">GTK_SHADOW_OUT</property>
+                    <child>
+                      <object class="GtkTextView" id="node_warnings_frame_content">
+                        <property name="visible">True</property>
+                        <property name="editable">False</property>
+                        <property name="can_focus">False</property>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+          <packing>
+            <property name="name">node_box</property>
+            <property name="title" translatable="yes">Node</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkBox" id="warnings_box">
+            <property name="visible">True</property>
+            <property name="orientation">vertical</property>
+            <child>
+			  <object class="GtkFrame">
+                <property name="visible">True</property>
+                <property name="expand">True</property>
+                <child type="label">
+                  <object class="GtkLabel" id="warning_frame_label">
+                    <property name="visible">True</property>
+				    <property name="label">Kulupu's node warnings</property>
+				  </object>
+                </child>
+                <child>
+                  <object class="GtkScrolledWindow" id="warnings_frame_content_wrapper">
+                    <property name="visible">True</property>
+                    <property name="shadow-type">GTK_SHADOW_OUT</property>
+                    <child>
+                      <object class="GtkTextView" id="warnings_frame_content">
+                        <property name="visible">True</property>
+                        <property name="editable">False</property>
+                        <property name="can_focus">False</property>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+          <packing>
+            <property name="name">warnings_box</property>
+            <property name="title" translatable="yes">Warnings</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkBox" id="logs_box">
+            <property name="visible">True</property>
+            <property name="orientation">vertical</property>
+            <child>
+			  <object class="GtkFrame">
+                <property name="visible">True</property>
+                <property name="expand">True</property>
+                <child type="label">
+                  <object class="GtkLabel" id="logs_frame_label">
+                    <property name="visible">True</property>
+				    <property name="label">Kulupu's node logs</property>
+				  </object>
+                </child>
+                <child>
+                  <object class="GtkScrolledWindow" id="logs_frame_content_wrapper">
+                    <property name="visible">True</property>
+                    <property name="shadow-type">GTK_SHADOW_OUT</property>
+                    <child>
+                      <object class="GtkTextView" id="logs_frame_content">
+                        <property name="visible">True</property>
+                        <property name="editable">False</property>
+                        <property name="can_focus">False</property>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+          <packing>
+            <property name="name">logs_box</property>
+            <property name="title" translatable="yes">Logs</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+  </template>
+</interface>
