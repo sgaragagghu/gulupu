@@ -24,7 +24,10 @@ make
 #### Windows
 
 List the dll to be bundled together with the executable.
+
 ```ldd mygtkapp.exe | sed -n 's/\([^ ]*\) => \/mingw.*/\1/p' | sort```
 
 Copy all the dll necessary to ditribute the executable.
+
 ```ldd mygtkapp.exe | grep '\/mingw.*\.dll' -o | xargs -I{} cp "{}"```
+
