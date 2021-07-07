@@ -5,7 +5,7 @@ Gulupu is a GUI wrapper for kulupu, built using GTK+3.
 ## Run
 
 You can use the binary build at Gulupu's
-[releases](https://github.com/sgaragagghu/kulupu/releases) page.
+[releases](https://github.com/sgaragagghu/gulupu/releases) page.
 
 ## Build
 
