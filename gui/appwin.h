@@ -27,8 +27,8 @@
 #define GULUPU_APP_WINDOW_TYPE (gulupu_app_window_get_type ())
 G_DECLARE_FINAL_TYPE (GulupuAppWindow, gulupu_app_window, GULUPU, APP_WINDOW, GtkApplicationWindow)
 
-GulupuAppWindow *      gulupu_app_window_new          (GulupuApp *);
-void                    gulupu_app_window_open         (GulupuAppWindow *,
+GulupuAppWindow *       gulupu_app_window_new           (GulupuApp *);
+void                    gulupu_app_window_open          (GulupuAppWindow *,
                                                          GFile *);
 gboolean                update_informations             (struct information *);
 gboolean                save_address                    (struct information *);

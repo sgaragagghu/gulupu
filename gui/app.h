@@ -37,7 +37,7 @@ struct manage_node_arg {
   GtkSwitch *switcher;
 };
 
-GulupuApp     *gulupu_app_new         (void);
+GulupuApp       *gulupu_app_new         (void);
 void            manage_node_thread      (struct manage_node_arg);
 
 
