@@ -16,14 +16,14 @@
  * along with this library. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef __EXAMPLEAPP_H
-#define __EXAMPLEAPP_H
+#ifndef __GULUPUAPP_H
+#define __GULUPUAPP_H
 
 #include <gtk/gtk.h>
 #include <pthread.h>
 
-#define EXAMPLE_APP_TYPE (example_app_get_type ())
-G_DECLARE_FINAL_TYPE (ExampleApp, example_app, EXAMPLE, APP, GtkApplication)
+#define GULUPU_APP_TYPE (gulupu_app_get_type ())
+G_DECLARE_FINAL_TYPE (GulupuApp, gulupu_app, GULUPU, APP, GtkApplication)
 
 enum action_thread {
   TH_START,
@@ -37,8 +37,8 @@ struct manage_node_arg {
   GtkSwitch *switcher;
 };
 
-ExampleApp     *example_app_new         (void);
+GulupuApp     *gulupu_app_new         (void);
 void            manage_node_thread      (struct manage_node_arg);
 
 
-#endif /* __EXAMPLEAPP_H */
+#endif /* __GULUPUAPP_H */

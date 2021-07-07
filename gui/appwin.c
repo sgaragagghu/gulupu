@@ -22,7 +22,7 @@
 #include "appwin.h"
 #include "../logic/config.h"
 
-struct _ExampleAppWindow
+struct _GulupuAppWindow
 {
   GtkApplicationWindow parent;
 
@@ -56,9 +56,9 @@ struct _ExampleAppWindow
   GtkWidget *logs_frame_content;
 };
 
-G_DEFINE_TYPE(ExampleAppWindow, example_app_window, GTK_TYPE_APPLICATION_WINDOW);
+G_DEFINE_TYPE(GulupuAppWindow, gulupu_app_window, GTK_TYPE_APPLICATION_WINDOW);
 
-ExampleAppWindow *g_window = NULL;
+GulupuAppWindow *g_window = NULL;
 
 GtkWindow * const get_window ()
 {
@@ -121,7 +121,7 @@ mine_at_start_switch_cb (GtkSwitch  *switcher,
 }
 
 static void 
-kulupu_exe_select_cb (GtkButton *button, ExampleAppWindow *win)
+kulupu_exe_select_cb (GtkButton *button, GulupuAppWindow *win)
 {
   GtkWindow *parent_window = GTK_WINDOW(win);
   GtkWidget *dialog;
@@ -216,7 +216,7 @@ thread_inserted_cb (GtkEditable *editable,
 }
 
 static void
-example_app_window_init (ExampleAppWindow *win)
+gulupu_app_window_init (GulupuAppWindow *win)
 {
 
   gtk_widget_init_template (GTK_WIDGET (win));
@@ -276,47 +276,47 @@ example_app_window_init (ExampleAppWindow *win)
 }
 
 static void
-example_app_window_class_init (ExampleAppWindowClass *class)
+gulupu_app_window_class_init (GulupuAppWindowClass *class)
 {
   gtk_widget_class_set_template_from_resource (GTK_WIDGET_CLASS (class),
                                                "/org/gtk/app/window.ui");
 
-  gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (class), ExampleAppWindow, stack);
-  gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (class), ExampleAppWindow, version_entry);
-  gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (class), ExampleAppWindow, name_entry);
-  gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (class), ExampleAppWindow, peers_entry);
-  gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (class), ExampleAppWindow, best_block_entry);
-  gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (class), ExampleAppWindow, local_hashrate_entry);
-  gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (class), ExampleAppWindow, network_hashrate_entry);
-  gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (class), ExampleAppWindow, database_entry);
-  gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (class), ExampleAppWindow, identity_entry);
-  gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (class), ExampleAppWindow, threads_entry);
-  gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (class), ExampleAppWindow, address_entry);
-  gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (class), ExampleAppWindow, target_entry);
-  gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (class), ExampleAppWindow, status_entry);
+  gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (class), GulupuAppWindow, stack);
+  gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (class), GulupuAppWindow, version_entry);
+  gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (class), GulupuAppWindow, name_entry);
+  gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (class), GulupuAppWindow, peers_entry);
+  gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (class), GulupuAppWindow, best_block_entry);
+  gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (class), GulupuAppWindow, local_hashrate_entry);
+  gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (class), GulupuAppWindow, network_hashrate_entry);
+  gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (class), GulupuAppWindow, database_entry);
+  gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (class), GulupuAppWindow, identity_entry);
+  gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (class), GulupuAppWindow, threads_entry);
+  gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (class), GulupuAppWindow, address_entry);
+  gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (class), GulupuAppWindow, target_entry);
+  gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (class), GulupuAppWindow, status_entry);
 
-  gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (class), ExampleAppWindow, node_switch);
+  gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (class), GulupuAppWindow, node_switch);
   
-  gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (class), ExampleAppWindow, mine_at_start_switch);
+  gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (class), GulupuAppWindow, mine_at_start_switch);
   
-  gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (class), ExampleAppWindow, kulupu_exe_entry);
-  gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (class), ExampleAppWindow, kulupu_exe_button);
+  gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (class), GulupuAppWindow, kulupu_exe_entry);
+  gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (class), GulupuAppWindow, kulupu_exe_button);
 
-  gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (class), ExampleAppWindow, header_image);
+  gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (class), GulupuAppWindow, header_image);
 
-  gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (class), ExampleAppWindow, node_warnings_frame_content);
-  gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (class), ExampleAppWindow, warnings_frame_content);
-  gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (class), ExampleAppWindow, logs_frame_content);
+  gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (class), GulupuAppWindow, node_warnings_frame_content);
+  gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (class), GulupuAppWindow, warnings_frame_content);
+  gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (class), GulupuAppWindow, logs_frame_content);
 }
 
-ExampleAppWindow *
-example_app_window_new (ExampleApp *app)
+GulupuAppWindow *
+gulupu_app_window_new (GulupuApp *app)
 {
-  return g_object_new (EXAMPLE_APP_WINDOW_TYPE, "application", app, NULL);
+  return g_object_new (GULUPU_APP_WINDOW_TYPE, "application", app, NULL);
 }
 
 void
-example_app_window_open (ExampleAppWindow *win,
+gulupu_app_window_open (GulupuAppWindow *win,
                          GFile *file)
 {
   gchar *basename;
@@ -324,7 +324,7 @@ example_app_window_open (ExampleAppWindow *win,
   gchar *contents;
   gsize length;
 
-//  priv = example_app_window_get_instance_private (win);
+//  priv = gulupu_app_window_get_instance_private (win);
   basename = g_file_get_basename (file);
 
   scrolled = gtk_scrolled_window_new (NULL, NULL);

@@ -27,17 +27,17 @@
 #include "../logic/parser_thread.h"
 #include "../logic/config.h"
 
-struct _ExampleApp
+struct _GulupuApp
 {
   GtkApplication parent;
 };
 
-G_DEFINE_TYPE(ExampleApp, example_app, GTK_TYPE_APPLICATION);
+G_DEFINE_TYPE(GulupuApp, gulupu_app, GTK_TYPE_APPLICATION);
 
-static ExampleApp *g_app = NULL;
+static GulupuApp *g_app = NULL;
 
 static void
-example_app_init (ExampleApp *app)
+gulupu_app_init (GulupuApp *app)
 {
   initialize_config ();
   g_app = app;
@@ -164,11 +164,11 @@ manage_node_thread (struct manage_node_arg arg)
 }
 
 static void
-example_app_activate (GApplication *app)
+gulupu_app_activate (GApplication *app)
 {
-  ExampleAppWindow *win;
+  GulupuAppWindow *win;
 
-  win = example_app_window_new (EXAMPLE_APP (app));
+  win = gulupu_app_window_new (GULUPU_APP (app));
   
   GtkCssProvider *cssProvider = gtk_css_provider_new();
   gtk_css_provider_load_from_resource(cssProvider, "/org/gtk/app/styles.css");
@@ -180,17 +180,17 @@ example_app_activate (GApplication *app)
 }
 
 static void
-example_app_class_init (ExampleAppClass *class)
+gulupu_app_class_init (GulupuAppClass *class)
 {
-  G_APPLICATION_CLASS (class)->activate = example_app_activate;
+  G_APPLICATION_CLASS (class)->activate = gulupu_app_activate;
 }
 
-ExampleApp *
-example_app_new (void)
+GulupuApp *
+gulupu_app_new (void)
 {
 
-  return g_object_new (EXAMPLE_APP_TYPE,
-                       "application-id", "org.gtk.exampleapp",
+  return g_object_new (GULUPU_APP_TYPE,
+                       "application-id", "org.gtk.gulupuapp",
                        "flags", G_APPLICATION_FLAGS_NONE,
                        NULL);
 }

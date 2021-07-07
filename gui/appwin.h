@@ -16,19 +16,19 @@
  * along with this library. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef __EXAMPLEAPPWIN_H
-#define __EXAMPLEAPPWIN_H
+#ifndef __GULUPUAPPWIN_H
+#define __GULUPUAPPWIN_H
 
 #include <gtk/gtk.h>
 
 #include "app.h"
 #include "../logic/parser_thread.h"
 
-#define EXAMPLE_APP_WINDOW_TYPE (example_app_window_get_type ())
-G_DECLARE_FINAL_TYPE (ExampleAppWindow, example_app_window, EXAMPLE, APP_WINDOW, GtkApplicationWindow)
+#define GULUPU_APP_WINDOW_TYPE (gulupu_app_window_get_type ())
+G_DECLARE_FINAL_TYPE (GulupuAppWindow, gulupu_app_window, GULUPU, APP_WINDOW, GtkApplicationWindow)
 
-ExampleAppWindow *      example_app_window_new          (ExampleApp *);
-void                    example_app_window_open         (ExampleAppWindow *,
+GulupuAppWindow *      gulupu_app_window_new          (GulupuApp *);
+void                    gulupu_app_window_open         (GulupuAppWindow *,
                                                          GFile *);
 gboolean                update_informations             (struct information *);
 gboolean                save_address                    (struct information *);
@@ -41,4 +41,4 @@ void                    node_switch_wrap_cb             (GObject *,
 GtkWindow * const       get_window                      (void);
 
 							
-#endif /* __EXAMPLEAPPWIN_H */
+#endif /* __GULUPUAPPWIN_H */

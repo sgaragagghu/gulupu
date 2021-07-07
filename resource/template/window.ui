@@ -19,7 +19,7 @@
 
 <interface>
   <!-- interface-requires gtk+ 3.8 -->
-  <template class="ExampleAppWindow" parent="GtkApplicationWindow">
+  <template class="GulupuAppWindow" parent="GtkApplicationWindow">
     <property name="title" translatable="yes">Gulupu</property>
     <property name="resizable">False</property>
     <child type="titlebar">
@@ -358,7 +358,7 @@
                         <property name="top-attach">0</property>
                       </packing>
                     </child>
-		    <child>
+                    <child>
                       <object class="GtkLabel" id="address_label">
                         <property name="visible">True</property>
                         <property name="halign">end</property>
