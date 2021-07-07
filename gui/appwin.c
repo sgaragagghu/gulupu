@@ -62,7 +62,7 @@ GulupuAppWindow *g_window = NULL;
 
 GtkWindow * const get_window ()
 {
-  return g_window;
+  return GTK_WINDOW (g_window);
 }
 
 static gboolean
@@ -170,9 +170,10 @@ thread_deleted_cb (GtkEditable *editable,
                    int          end_pos,
                    gpointer     user_data)
 {
+#define MAXPASTESIZE 1000 // to hide the warning
   g_autofree gchar *threads = gtk_editable_get_chars (editable, 0, -1);
   threads[start_pos] = '\0';
-  strcat (threads, threads + end_pos);
+  strncat (threads, threads + end_pos, MAXPASTESIZE);
   
   for (gint read = 0, accept_zero = FALSE;
        threads[read] != '\0';
@@ -190,6 +191,7 @@ thread_deleted_cb (GtkEditable *editable,
     }
 
   return;
+#undef MAXPASTESIZE
 }
 
 static void
