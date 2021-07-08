@@ -19,6 +19,10 @@
 #ifndef __EXAMPLEAPP_PARSER_THREAD_H
 #define __EXAMPLEAPP_PARSER_THREAD_H
 
+#ifndef WIN32
+#include <stdint.h>
+#endif
+
 #define BUFF_SIZE 1024
 #define REFRESH_TIME 3
 

@@ -30,6 +30,10 @@ endif
 
 FLAGS = -std=gnu11 -O3 -Wall -Wmissing-prototypes -Wno-unused-variable
 
+ifeq ($(OS), unix)
+ PTHREAD_FLAGS = -lpthread
+endif
+
 SRC =					\
 	./gui/main.c			\
 	./gui/app.c			\
@@ -61,10 +65,10 @@ all: gulupu
 	glib-compile-resources $< --target=$@ --generate-source
 
 %.o: %.c
-	$(CC) -c -o $@ $(FLAGS) $(CFLAGS) $<
+	$(CC) -c -o $@ $(FLAGS) $(CFLAGS) $(PTHREAD_FLAGS) $<
 
 gulupu: $(RSC_SRC) $(RSC_OBJ) $(OBJS) $(OBJ_WRSC)
-	$(CC) -o $(@F) $(OBJS) $(OBJ_WRSC) $(RSC_OBJ) $(LIBS)
+	$(CC) -o $(@F) $(OBJS) $(OBJ_WRSC) $(RSC_OBJ) $(LIBS) $(PTHREAD_FLAGS)
 
 clean:
 	rm -f $(OBJS) $(OBJ_WRSC) $(RSC_SRC) $(RSC_OBJ)

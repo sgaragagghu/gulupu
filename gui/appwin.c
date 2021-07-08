@@ -266,7 +266,7 @@ gulupu_app_window_init (GulupuAppWindow *win)
 
   g_autofree const gchar *address = load_config (&(struct setting){"Kulupu", "address", NULL}).value;
   gtk_entry_set_text (GTK_ENTRY(win->address_entry), address);
-  
+
   g_autofree const gchar *mine_at_start_active = load_config (&(struct setting){"Gulupu", "mine_at_start", NULL}).value;
   const gboolean mine_at_start_maybe = YES_NO_TO_BOOL(mine_at_start_active);
   gtk_switch_set_active (GTK_SWITCH (win->mine_at_start_switch),
