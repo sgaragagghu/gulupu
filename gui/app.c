@@ -78,7 +78,10 @@ manage_node_error (uintptr_t error)
      g_subprocess_wait(process, NULL, NULL);
 
      if (process == NULL)
+       {
        g_application_quit (G_APPLICATION (g_app));
+       return; // shouldn't be necessary.
+       }
      }
     gtk_widget_destroy (dialog);
     }
@@ -135,10 +138,16 @@ manage_node_thread (struct manage_node_arg arg)
                               G_SUBPROCESS_FLAGS_STDERR_PIPE,
                               NULL);
   if (process == NULL)
+    {
     g_application_quit (G_APPLICATION (g_app));
+    return;
+    }
 			 
   if (pthread_create(thread_id, NULL, (void * (*)(void *))thread_loop, process))
+    {
     g_application_quit (G_APPLICATION (g_app));
+    return;
+    }
 
   struct manage_node_arg *arg_cb = g_malloc (sizeof(struct manage_node_arg));
   *arg_cb = (struct manage_node_arg){TH_STOP, *thread_id, arg.current_tid, arg.switcher};
