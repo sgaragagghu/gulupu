@@ -23,6 +23,13 @@
 #include <pthread.h>
 
 #define GULUPU_APP_TYPE (gulupu_app_get_type ())
+
+#define GULUPU_EXIT() \
+  {                   \
+  gulupu_quit();      \
+  return;             \
+  }
+
 G_DECLARE_FINAL_TYPE (GulupuApp, gulupu_app, GULUPU, APP, GtkApplication)
 
 enum action_thread {
@@ -35,10 +42,12 @@ struct manage_node_arg {
   pthread_t tid;
   pthread_t *current_tid;
   GtkSwitch *switcher;
+  gboolean quit;
 };
 
 GulupuApp       *gulupu_app_new         (void);
 void            manage_node_thread      (struct manage_node_arg);
+void            gulupu_quit             (void);
 
 
 #endif /* __GULUPUAPP_H */

@@ -91,10 +91,16 @@ node_switch_wrap_cb (GObject *source_object,
 {
   struct manage_node_arg *arg = user_data;
 
-  if (*(arg->current_tid) == arg->tid)
-    node_switch_cb (GTK_SWITCH (arg->switcher), FALSE, NULL);
+  if (arg->current_tid == NULL || *(arg->current_tid) == arg->tid)
+    {
+    if (arg->switcher == NULL)
+      arg->switcher = (GtkSwitch *)g_window->node_switch;
+    if (arg->switcher != NULL)
+      node_switch_cb (GTK_SWITCH (arg->switcher), FALSE, NULL);
+    }
 
   g_free(user_data);
+  if (arg->quit) GULUPU_EXIT();
 }
 
 /*Signal handler for the "state-set" signal of the Switch*/
@@ -255,6 +261,13 @@ gulupu_app_window_init (GulupuAppWindow *win)
                     G_CALLBACK (thread_deleted_cb),
                     win);
 
+  struct manage_node_arg *arg_cb = g_malloc (sizeof(struct manage_node_arg));
+  *arg_cb = (struct manage_node_arg){TH_STOP, 0, NULL, GTK_SWITCH(win->node_switch), TRUE};
+  g_signal_connect (GTK_WINDOW (win),
+                    "delete-event",
+                    G_CALLBACK (node_switch_wrap_cb),
+                    arg_cb);
+
   gtk_image_set_from_resource (GTK_IMAGE (win->header_image),
                                "/org/gtk/app/icon.png");
 						   
@@ -273,7 +286,7 @@ gulupu_app_window_init (GulupuAppWindow *win)
                          mine_at_start_maybe);
   if (mine_at_start_maybe)
     {
-    node_switch_cb (GTK_SWITCH(win->node_switch), TRUE, win);
+    node_switch_cb (GTK_SWITCH(win->node_switch), TRUE, NULL);
     }
 }
 

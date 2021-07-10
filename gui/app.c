@@ -79,7 +79,7 @@ manage_node_error (uintptr_t error)
 
      if (process == NULL)
        {
-       g_application_quit (G_APPLICATION (g_app));
+       gulupu_quit();
        return; // shouldn't be necessary.
        }
      }
@@ -138,19 +138,13 @@ manage_node_thread (struct manage_node_arg arg)
                               G_SUBPROCESS_FLAGS_STDERR_PIPE,
                               NULL);
   if (process == NULL)
-    {
-    g_application_quit (G_APPLICATION (g_app));
-    return;
-    }
+    GULUPU_EXIT();
 			 
   if (pthread_create(thread_id, NULL, (void * (*)(void *))thread_loop, process))
-    {
-    g_application_quit (G_APPLICATION (g_app));
-    return;
-    }
+    GULUPU_EXIT();
 
   struct manage_node_arg *arg_cb = g_malloc (sizeof(struct manage_node_arg));
-  *arg_cb = (struct manage_node_arg){TH_STOP, *thread_id, arg.current_tid, arg.switcher};
+  *arg_cb = (struct manage_node_arg){TH_STOP, *thread_id, arg.current_tid, arg.switcher, FALSE};
   g_subprocess_wait_async (process,
                            NULL,
                            node_switch_wrap_cb,
@@ -202,4 +196,10 @@ gulupu_app_new (void)
                        "application-id", "org.gtk.gulupuapp",
                        "flags", G_APPLICATION_FLAGS_NONE,
                        NULL);
+}
+
+void
+gulupu_quit (void)
+{
+  if (g_app != NULL) g_application_quit (G_APPLICATION (g_app));
 }
