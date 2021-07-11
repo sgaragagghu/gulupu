@@ -24,10 +24,10 @@
 
 #define GULUPU_APP_TYPE (gulupu_app_get_type ())
 
-#define GULUPU_EXIT() \
-  {                   \
-  gulupu_quit();      \
-  return;             \
+#define GULUPU_EXIT(arg) \
+  {                      \
+  gulupu_quit();         \
+  return arg;            \
   }
 
 G_DECLARE_FINAL_TYPE (GulupuApp, gulupu_app, GULUPU, APP, GtkApplication)
@@ -46,7 +46,7 @@ struct manage_node_arg {
 };
 
 GulupuApp       *gulupu_app_new         (void);
-void            manage_node_thread      (struct manage_node_arg);
+gboolean        manage_node_thread      (struct manage_node_arg);
 void            gulupu_quit             (void);
 
 

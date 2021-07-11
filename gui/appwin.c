@@ -71,15 +71,19 @@ node_switch_cb (GtkSwitch  *switcher,
                 gpointer    user_data)
 {
   static pthread_t thread_id;
-  if(state)
+  if (state)
     {
-    manage_node_thread ((struct manage_node_arg){TH_START, 0, &thread_id, switcher});
-    gtk_switch_set_state (switcher, TRUE);
-    } 
+    if (manage_node_thread ((struct manage_node_arg){TH_START, 0, &thread_id, switcher}))
+      gtk_switch_set_state (switcher, TRUE);
+    else
+      gtk_switch_set_active (switcher, FALSE);
+    }
   else
     {
-    manage_node_thread ((struct manage_node_arg){TH_STOP, 0, &thread_id, switcher});
-    gtk_switch_set_state (switcher, FALSE);
+    if (manage_node_thread ((struct manage_node_arg){TH_STOP, 0, &thread_id, switcher}))
+      gtk_switch_set_state (switcher, FALSE);
+    else
+      gtk_switch_set_state (switcher, TRUE);
     }
   return TRUE;
 }

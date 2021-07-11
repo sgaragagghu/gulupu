@@ -92,7 +92,28 @@ manage_node_error (uintptr_t error)
     }
 }
 
-void
+static void
+process_init_failed_dialog ()
+{
+    GtkDialogFlags flags = GTK_DIALOG_DESTROY_WITH_PARENT;
+    GtkWidget *dialog = gtk_message_dialog_new (get_window (),
+                                    flags,
+                                    GTK_MESSAGE_ERROR,
+                                    GTK_BUTTONS_CLOSE,
+                                    "Are you sure to have choosen the kulupu executable ?");
+   GtkWidget *headerbar = gtk_header_bar_new ();
+   gtk_widget_set_visible (headerbar, TRUE);
+   gtk_header_bar_set_show_close_button (GTK_HEADER_BAR (headerbar),
+                                         TRUE);
+   gtk_header_bar_set_title (GTK_HEADER_BAR (headerbar),
+                             "Kulupu failed to start");
+   gtk_window_set_titlebar (GTK_WINDOW (dialog), headerbar);
+   gtk_dialog_run (GTK_DIALOG (dialog));
+   gtk_widget_destroy (dialog);
+}
+
+
+gboolean
 manage_node_thread (struct manage_node_arg arg)
 {
   enum action_thread action = arg.action;
@@ -138,10 +159,13 @@ manage_node_thread (struct manage_node_arg arg)
                               G_SUBPROCESS_FLAGS_STDERR_PIPE,
                               NULL);
   if (process == NULL)
-    GULUPU_EXIT();
+    {
+    process_init_failed_dialog();
+    return FALSE;
+    }
 			 
   if (pthread_create(thread_id, NULL, (void * (*)(void *))thread_loop, process))
-    GULUPU_EXIT();
+    GULUPU_EXIT(FALSE);
 
   struct manage_node_arg *arg_cb = g_malloc (sizeof(struct manage_node_arg));
   *arg_cb = (struct manage_node_arg){TH_STOP, *thread_id, arg.current_tid, arg.switcher, FALSE};
@@ -164,6 +188,7 @@ manage_node_thread (struct manage_node_arg arg)
     manage_node_error (retval);
     process = NULL;
   }
+  return TRUE;
 }
 
 static void

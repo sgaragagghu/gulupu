@@ -72,7 +72,7 @@ initialize_config ()
   const struct setting default_settings[default_settings_amount] =
   {
     {"Kulupu", "threads", "2"},
-    {"Kulupu", "exe", "./kulupu.exe"},
+    {"Kulupu", "exe", ""},
     {"Kulupu", "address", ""},
     {"Gulupu", "mine_at_start", "no"}
   };
