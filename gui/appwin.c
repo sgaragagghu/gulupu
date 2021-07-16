@@ -334,41 +334,6 @@ gulupu_app_window_new (GulupuApp *app)
   return g_object_new (GULUPU_APP_WINDOW_TYPE, "application", app, NULL);
 }
 
-void
-gulupu_app_window_open (GulupuAppWindow *win,
-                         GFile *file)
-{
-  gchar *basename;
-  GtkWidget *scrolled, *view;
-  gchar *contents;
-  gsize length;
-
-//  priv = gulupu_app_window_get_instance_private (win);
-  basename = g_file_get_basename (file);
-
-  scrolled = gtk_scrolled_window_new (NULL, NULL);
-  gtk_widget_show (scrolled);
-  gtk_widget_set_hexpand (scrolled, TRUE);
-  gtk_widget_set_vexpand (scrolled, TRUE);
-  view = gtk_text_view_new ();
-  gtk_text_view_set_editable (GTK_TEXT_VIEW (view), FALSE);
-  gtk_text_view_set_cursor_visible (GTK_TEXT_VIEW (view), FALSE);
-  gtk_widget_show (view);
-  gtk_container_add (GTK_CONTAINER (scrolled), view);
-  gtk_stack_add_titled (GTK_STACK (win->stack), scrolled, basename, basename);
-
-  if (g_file_load_contents (file, NULL, &contents, &length, NULL, NULL))
-    {
-      GtkTextBuffer *buffer;
-
-      buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (view));
-      gtk_text_buffer_set_text (buffer, contents, length);
-      g_free (contents);
-    }
-
-  g_free (basename);
-}
-
 gboolean
 update_informations (struct information *informations)
 {
