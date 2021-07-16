@@ -33,15 +33,9 @@ make
 
 1. Place gulupu.exe and gdbus.exe(from msys64\mingw64\bin) in ./bin
 
-1. ```sh
-$ cp -r /mingw64/lib/gdk-pixbuf-2.0/* ./lib/gdk-pixbuf-2.0
-```
+1. ```sh $ cp -r /mingw64/lib/gdk-pixbuf-2.0/* ./lib/gdk-pixbuf-2.0```
 
-1. ```sh
-$ cp -r /mingw64/share/icons/* ./share/icons/
-```
+1. ```sh $ cp -r /mingw64/share/icons/* ./share/icons/```
 
-1. ```sh
-$ cp /mingw64/share/glib-2.0/schemas/* share/glib-2.0/schemas/
-```
+1. ```sh $ cp /mingw64/share/glib-2.0/schemas/* share/glib-2.0/schemas/```
 
