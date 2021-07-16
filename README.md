@@ -27,9 +27,7 @@ make
 
 ```ldd mygtkapp.exe | sed -n 's/\([^ ]*\) => \/mingw.*/\1/p' | sort```
 
-1. Copy all the dll necessary to ditribute the executable.
-
-```ldd mygtkapp.exe | grep '\/mingw.*\.dll' -o | xargs -I{} cp "{}" ./bin```
+1. ```sh $ ldd mygtkapp.exe | grep '\/mingw.*\.dll' -o | xargs -I{} cp "{}" ./bin``` (copying all the necessary dll) 
 
 1. Place gulupu.exe and gdbus.exe(from msys64\mingw64\bin) in ./bin
 
