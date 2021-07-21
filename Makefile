@@ -69,10 +69,10 @@ all: gulupu
 	glib-compile-resources $< --target=$@ --generate-source
 
 %.o: %.c
-	$(CC) -c -o $@ $(FLAGS) $(WIN_FLAGS) $(CFLAGS) $(PTHREAD_FLAGS) $<
+	$(CC) -c -o $@ $(FLAGS) $(CFLAGS) $(PTHREAD_FLAGS) $<
 
 gulupu: $(RSC_SRC) $(RSC_OBJ) $(OBJS) $(OBJ_WRSC)
-	$(CC) -o $(@F) $(OBJS) $(OBJ_WRSC) $(RSC_OBJ) $(LIBS) $(PTHREAD_FLAGS) $(WIN_FLAGS)
+	$(CC) -o $(@F) $(OBJS) $(OBJ_WRSC) $(RSC_OBJ) $(LIBS) $(PTHREAD_FLAGS)
 
 clean:
 	rm -f $(OBJS) $(OBJ_WRSC) $(RSC_SRC) $(RSC_OBJ)

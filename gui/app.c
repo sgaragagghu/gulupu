@@ -112,10 +112,30 @@ process_init_failed_dialog ()
    gtk_widget_destroy (dialog);
 }
 
+static void
+debug_dialog (char *string)
+{
+    GtkDialogFlags flags = GTK_DIALOG_DESTROY_WITH_PARENT;
+    GtkWidget *dialog = gtk_message_dialog_new (get_window (),
+                                    flags,
+                                    GTK_MESSAGE_ERROR,
+                                    GTK_BUTTONS_CLOSE,
+                                    string);
+   GtkWidget *headerbar = gtk_header_bar_new ();
+   gtk_widget_set_visible (headerbar, TRUE);
+   gtk_header_bar_set_show_close_button (GTK_HEADER_BAR (headerbar),
+                                         TRUE);
+   gtk_header_bar_set_title (GTK_HEADER_BAR (headerbar),
+                             "Debug");
+   gtk_window_set_titlebar (GTK_WINDOW (dialog), headerbar);
+   gtk_dialog_run (GTK_DIALOG (dialog));
+   gtk_widget_destroy (dialog);
+}
 
 gboolean
 manage_node_thread (struct manage_node_arg arg)
 {
+  if (FALSE) debug_dialog ("");
   enum action_thread action = arg.action;
   static GSubprocess *process = NULL;
   pthread_t *thread_id = arg.current_tid;
@@ -143,6 +163,7 @@ manage_node_thread (struct manage_node_arg arg)
                                          };
 
   const gchar * const base_argv_no_addr[] = {
+"cmd", "/c",
                                               exe,
                                               "--validator",
                                               "--threads",
@@ -155,11 +176,15 @@ manage_node_thread (struct manage_node_arg arg)
   else
     base_argv = base_argv_no_addr;
 
+  GError *error = NULL;
   process = g_subprocess_newv(base_argv,
-                              G_SUBPROCESS_FLAGS_STDERR_PIPE,
-                              NULL);
+                              G_SUBPROCESS_FLAGS_STDOUT_PIPE
+
+,
+                              &error);
   if (process == NULL)
     {
+		debug_dialog (error->message);
     process_init_failed_dialog();
     return FALSE;
     }
