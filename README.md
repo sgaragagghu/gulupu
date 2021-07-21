@@ -27,9 +27,11 @@ make
 
 ```ldd mygtkapp.exe | sed -n 's/\([^ ]*\) => \/mingw.*/\1/p' | sort```
 
-1. ```sh $ ldd mygtkapp.exe | grep '\/mingw.*\.dll' -o | xargs -I{} cp "{}" ./bin``` (copying all the necessary dll) 
+1. ```sh $ ldd mygtkapp.exe | grep '\/mingw.*\.dll' -o | xargs -I{} cp "{}" .``` (copying all the necessary dll) 
 
-1. Place gulupu.exe and gdbus.exe(from msys64\mingw64\bin) in ./bin
+1. Place gdbus.exe in ./bin
+
+1. Place gspawn-win64-helper.exe and gspawn-win64-helper-console.exe (from msys64\mingw64\bin) in ./bin
 
 1. ```sh $ cp -r /mingw64/lib/gdk-pixbuf-2.0/* ./lib/gdk-pixbuf-2.0```
 
