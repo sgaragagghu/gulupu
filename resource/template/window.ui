@@ -53,7 +53,7 @@
                   <object class="GtkLabel" id="header_version_label_down">
                     <property name="visible">True</property>
                     <property name="sensitive">False</property>
-                    <property name="label">v. 0.90</property>
+                    <property name="label">v. 0.91</property>
                   </object>
                 </child>
               </object>
