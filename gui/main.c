@@ -18,10 +18,19 @@
 
 #include <gtk/gtk.h>
 
+#ifdef WIN32
+#include <windows.h>
+#endif
+
 #include "app.h"
 
 int
 main (int argc, char *argv[])
 {
+#ifdef WIN32
+#include <windows.h>
+  HWND console = GetConsoleWindow();
+  ShowWindow (console, SW_HIDE);
+#endif
   return g_application_run (G_APPLICATION (gulupu_app_new ()), argc, argv);
 }

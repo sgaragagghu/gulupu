@@ -159,6 +159,7 @@ manage_node_thread (struct manage_node_arg arg)
                                            address,
                                            "--threads",
                                            threads,
+//                                           "2>&1",
                                            NULL
                                          };
 
@@ -168,6 +169,7 @@ manage_node_thread (struct manage_node_arg arg)
                                               "--validator",
                                               "--threads",
                                               threads,
+//                                              "2>&1",
                                               NULL
                                             };
 
@@ -178,9 +180,7 @@ manage_node_thread (struct manage_node_arg arg)
 
   GError *error = NULL;
   process = g_subprocess_newv(base_argv,
-                              G_SUBPROCESS_FLAGS_STDOUT_PIPE
-
-,
+                              G_SUBPROCESS_FLAGS_STDERR_PIPE,
                               &error);
   if (process == NULL)
     {
